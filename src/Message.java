@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-public class Message {
+public class Message implements Serializable{
 	
 	protected String type;
 	protected String status;
@@ -13,21 +13,23 @@ public class Message {
 	}
 	
 	public Message(String type, String status, String text) {
-		this.type = setType(type);
-		this.status = setStatus(status);
-		this.text = setText(text);
+		this.type = type;
+		this.status = status;
+		this.text = text;
 	}
 	
 	private void setType(String type) {
-		
+		if (this.type.equals("Undefined")) {
+			this.type = type;
+		}
 	}
 	
-	private void setStatus(String status) {
-		
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
-	private void setText(String text) {
-		
+	public void setText(String text) {
+		this.text = text;
 	}
 	
 	public String getType() {
