@@ -9,7 +9,21 @@ public class Server {
 	public static void main(String[] args) throws IOException, ClassNotFoundException{
 		// TODO Auto-generated method stub
 		
+		try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+			System.out.println("Server listening on port " + PORT);
+			
+			while (true) {
+				Socket clientSocket = serverSocket.accept();
+				System.out.println("New client connected...");
+				
+				// start a new connection for each client
+				SessionThread sessionThread = new SessionThread(clientSocket);
+			}
+			
 		
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
 //		ServerSocket ss = new ServerSocket(PORT);
 //		System.out.println("ServerSocket awaiting connections...");
 //		
