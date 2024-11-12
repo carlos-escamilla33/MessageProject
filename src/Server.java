@@ -21,7 +21,19 @@ public class Server {
 		List<Message> listOfMessages = (List<Message>) ObjectInputStream.readObject();
 		System.out.println("Recieved [" + listOfMessages.size() + "] messages from: " + socket);
 		
+		System.out.println("All messages: ");
+		listOfMessages.forEach(msg -> printMessage(msg));
 		
+		System.out.println("Closing sockets.");
+		ss.close();
+		socket.close();
+	}
+	
+	private static void printMessage(Message msg) {
+		System.out.println("ID: " + msg.getId());
+		System.out.println("Satus: " + msg.getStatus());
+		System.out.println("Type: " + msg.getType());
+		System.out.println("Text: " + msg.getText());
 	}
 
 }
