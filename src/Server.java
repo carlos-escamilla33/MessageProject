@@ -17,7 +17,8 @@ public class Server {
 				System.out.println("New client connected...");
 				
 				// start a new connection for each client
-				SessionThread sessionThread = new SessionThread(clientSocket);
+				SessionHandler sessionHandler = new SessionHandler(clientSocket);
+				new Thread(sessionHandler).start();
 			}
 			
 		

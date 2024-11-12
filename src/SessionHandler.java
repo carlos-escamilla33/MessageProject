@@ -1,15 +1,15 @@
 import java.io.*;
 import java.net.*;
 
-public class SessionThread implements Runnable{
+public class SessionHandler implements Runnable{
 	private Socket clientSocket;
 	
-	public SessionThread(Socket socket) {
+	public SessionHandler(Socket socket) {
 		this.clientSocket = socket;
 	}
 	
 	@Override
 	public void run() {
-		
+		try ()
 	}
 }
