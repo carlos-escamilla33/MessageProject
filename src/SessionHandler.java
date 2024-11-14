@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class SessionHandler implements Runnable{
 	private Socket clientSocket;
-	private String connectionStatus = "unsuccessful";
-	private ArrayList<String> userCommands = new ArrayList<String>();
+	private ArrayList<Message> userMsgs;
 	
 	public SessionHandler(Socket socket) {
 		this.clientSocket = socket;
+		this.userMsgs = new ArrayList<Message>();
 	}
 	
 	@Override
@@ -18,27 +18,32 @@ public class SessionHandler implements Runnable{
 				ObjectOutputStream output = new ObjectOutputStream(clientSocket.getOutputStream());
 			) {
 			
-			Object recievedObj = input.readObject();
-			Message message = (Message) recievedObj;
-			
-			if (message.getType().equals("login")) {
-				this.connectionStatus = "Success";
+			while (true) {
+				Object recievedObj = input.readObject();
+				Message message = (Message) recievedObj;
 				
-				output.writeObject(connectionStatus);
-				output.flush();
+				userMsgs.add(message);
 				
-				while (message.getType().equals("text")) {
+				Message lastMsg = userMsgs.get(userMsgs.size() - 1);
+				
+				
+				if (lastMsg.getType().equals("login")) {
+					lastMsg.setStatus("success");
 					
-				}
-				
-				if (message.getType().equals("logout")) {
-					output.writeObject(connectionStatus);
-					output.writeObject("Logout complete...");
+					output.writeObject(lastMsg.getStatus());
 					output.flush();
+					
+					if (lastMsg.getType().equals("text")) {
+						
+					}
+					
+				} else {
+					output.writeObject("success");
+					output.flush();
+					output.writeObject("logging out");
+					output.flush();
+					break;
 				}
-				
-				this.connectionStatus = "unsuccessful";
-				
 			}
 			
 			
