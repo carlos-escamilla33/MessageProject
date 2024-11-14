@@ -25,25 +25,6 @@ public class Server {
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
-//		ServerSocket ss = new ServerSocket(PORT);
-//		System.out.println("ServerSocket awaiting connections...");
-//		
-//		Socket socket = ss.accept();
-//		System.out.println("Connection from " + socket + "!");
-//		
-//		InputStream inputStream = socket.getInputStream();
-//		
-//		ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-//		
-//		List<Message> listOfMessages = (List<Message>) ObjectInputStream.readObject();
-//		System.out.println("Recieved [" + listOfMessages.size() + "] messages from: " + socket);
-//		
-//		System.out.println("All messages: ");
-//		listOfMessages.forEach(msg -> printMessage(msg));
-//		
-//		System.out.println("Closing sockets.");
-//		ss.close();
-//		socket.close();
 	}
 
 }
