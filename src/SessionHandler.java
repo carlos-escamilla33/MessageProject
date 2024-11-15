@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 
-public class SessionHandler extends Thread{
+public class SessionHandler implements Runnable{
 	private Socket clientSocket;
 	private ArrayList<Message> userMsgs;
 	
@@ -13,10 +13,10 @@ public class SessionHandler extends Thread{
 	
 	@Override
 	public void run() {
-		try (
-				ObjectInputStream input = new ObjectInputStream(clientSocket.getInputStream());
-				ObjectOutputStream output = new ObjectOutputStream(clientSocket.getOutputStream());
-			) {
+		try {
+			
+			ObjectInputStream input = new ObjectInputStream(clientSocket.getInputStream());
+			ObjectOutputStream output = new ObjectOutputStream(clientSocket.getOutputStream());
 			
 			while (true) {
 				Object recievedObj = input.readObject();
@@ -28,8 +28,8 @@ public class SessionHandler extends Thread{
 				
 				
 				if (lastMsg.getStatus().equals("login message")) {
-					output.writeObject("success");
-					
+					output.writeObject(new Message("login", "login message", "success"));
+					output.flush();
 					output.writeObject(new Message("login", "text message", "Enter text."));
 					output.flush();
 					

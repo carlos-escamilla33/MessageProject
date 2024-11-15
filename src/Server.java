@@ -19,7 +19,7 @@ public class Server {
 				
 				// start a new connection for each client
 				SessionHandler sessionHandler = new SessionHandler(clientSocket);
-				sessionHandler.start();
+				new Thread(sessionHandler).start();
 			}
 			
 		
