@@ -14,11 +14,12 @@ public class Server {
 			
 			while (true) {
 				Socket clientSocket = serverSocket.accept();
+				
 				System.out.println("New client connected...");
 				
 				// start a new connection for each client
 				SessionHandler sessionHandler = new SessionHandler(clientSocket);
-				new Thread(sessionHandler).start();
+				sessionHandler.start();
 			}
 			
 		

@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 
-public class SessionHandler implements Runnable{
+public class SessionHandler extends Thread{
 	private Socket clientSocket;
 	private ArrayList<Message> userMsgs;
 	
