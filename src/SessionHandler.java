@@ -34,7 +34,10 @@ public class SessionHandler implements Runnable{
 					output.flush();
 					
 					if (lastMsg.getType().equals("text")) {
+						lastMsg.setText(lastMsg.getText().toUpperCase());
 						
+						output.writeObject(lastMsg.getText());
+						output.flush();
 					}
 					
 				} else {
