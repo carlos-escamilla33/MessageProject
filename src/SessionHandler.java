@@ -30,15 +30,15 @@ public class SessionHandler implements Runnable{
 				if (lastMsg.getStatus().equals("login message")) {
 					output.writeObject(new Message("login", "login message", "success"));
 					output.flush();
-					output.writeObject(new Message("login", "text message", "Enter text."));
+					output.writeObject(new Message("login", "text message", "Enter a message"));
 					output.flush();
 					
-				} else if (lastMsg.getStatus().equals("text message")) {
+				} else if (lastMsg.getStatus().equals("text message") && !lastMsg.getText().equals("logout")) {
 					String capText = lastMsg.getText().toUpperCase();
 					
 					output.writeObject(new Message("text", "text message", capText));
 					output.flush();
-				} else if (lastMsg.getType().equals("logout message")) {
+				} else if (lastMsg.getText().equals("logout")) {
 					output.writeObject(new Message("logout", "logout message", "Logout successful!"));
                     output.flush();
                     break;

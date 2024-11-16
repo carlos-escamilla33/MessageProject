@@ -1,9 +1,6 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -23,14 +20,22 @@ public class Client {
 			while (true) {
 				Object serverRes = input.readObject();
 				Message messageServer = (Message) serverRes;
-				System.out.println("server response " + messageServer.getText());
+				System.out.println("server response: " + messageServer.getText());
+			
 				
 				if (messageServer.getStatus().equals("text message")) {
 					System.out.println("Enter your message: ");
 					String text = scanner.nextLine();
 					output.writeObject(new Message("login", "text message", text));
+					output.flush();
+				} else if (messageServer.getStatus().equals("logout message")) {
+					break;
 				}
+				
+				
 			}
+			
+			scanner.close();
 			
 		} catch (IOException e) {
 			e.getStackTrace();
